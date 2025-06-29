@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34728.123
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Actividad4LegnProg3", "Actividad3LegnProg3\Actividad4LegnProg3.csproj", "{983EBE17-3355-4E73-BD05-AC7ED32F4832}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{983EBE17-3355-4E73-BD05-AC7ED32F4832}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{983EBE17-3355-4E73-BD05-AC7ED32F4832}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{983EBE17-3355-4E73-BD05-AC7ED32F4832}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{983EBE17-3355-4E73-BD05-AC7ED32F4832}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CC28C1F9-498D-486A-9B1B-487B541F6D24}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,93 @@
+﻿@model EstudianteViewModel
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<style>
+    
+    body{
+        background-image: url('/<img.jpg');
+        background-size: cover;
+        font-family: Arial, sans-serif;
+    
+    }
+
+</style>
+
+<h2>Registro de estudiante</h2
+
+
+<form asp-action="Registro" method="Post">
+
+    <div>
+        <label asp-for="Nombrecompleto"> </label>
+        <input asp-for="Nombrecompleto" class="form-control" />
+        <span asp-validation-for="Nombrecompleto" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="Matricula"> </label>
+        <input asp-for="Matricula" class="form-control" />
+        <span asp-validation-for="Matricula" class="text-danger"></span>
+    </div>
+
+    <div>
+        <label asp-for="Carrera"></label>
+        <select asp-for="Carrera" class="form-control" asp-items="@(new SelectList(ViewBag.Carrera))"></select>
+        <span asp-validation-for="Carrera" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="CorreoInstitucional"></label>
+        <input asp-for="CorreoInstitucional" class="form-control" />
+        <span asp-validation-for="CorreoInstitucional" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="Telefono"></label>
+        <input asp-for="Telefono" class="form-control" />
+        <span asp-validation-for="Telefono" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="Fechadenacimiento"></label>
+        <input asp-for="Fechadenacimiento" class="form-control" />
+        <span asp-validation-for="Fechadenacimiento" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="Genero"></label>
+        <input asp-for="Genero" class="form-control" />
+        <span asp-validation-for="Genero" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="Turno"></label>
+        <select asp-for="Turno"class="form-control">
+        <option value="">Selecione</option>
+        <option>Matutino</option>
+        <option>Vespertino</option> 
+        </select>
+        <span asp-validation-for="Turno" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="Tipodeingreso"></label>
+        <input asp-for="Tipodeingreso" class="form-control" />
+    </div>
+    <div>
+        <label asp-for="Estabecado"></label>
+        <input asp-for="Estabecado" type="checkbox"/>
+        <span asp-validation-for="Estabecado" class="text-danger"></span>
+
+    </div>
+    <div>
+        <label asp-for="Porcentajedebeca"></label>
+        <input asp-for="Porcentajedebeca" class="form-control" type="number" min="0" max="100"/>
+        <span asp-validation-for="Porcentajedebeca" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="Terminosycondiciones"> Acepto los termino y condiciones</label>
+        <input asp-for="Terminosycondiciones" type="checkbox"/>
+        <span asp-validation-for="Terminosycondiciones" class="text-danger"></span>
+    </div>
+    <button class="btn btn-success" type="submit">Registar</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
