@@ -17,5 +17,7 @@ namespace Actividad4LegnProg3.Models
         [Required]
         [StringLength(1, MinimumLength = 10, ErrorMessage = "La Carrera debe tener entre 1 y 10 caracteres.")]
         public string Carrera { get; set; }
+
+        public virtual ICollection<CalificacionesViewModel> Calificaciones { get; set; }
     }
 }

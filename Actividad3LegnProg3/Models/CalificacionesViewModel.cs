@@ -17,5 +17,7 @@ namespace Actividad4LegnProg3.Models
         [Required]
         public int Periodo { get; set; }
 
+        public virtual EstudianteViewModel Estudiante { get; set; }
+        public virtual MateriasViewModel Materia { get; set; }
     }
 }
