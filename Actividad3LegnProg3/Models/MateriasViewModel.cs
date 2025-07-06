@@ -4,7 +4,7 @@ namespace Actividad4LegnProg3.Models
 {
     public class MateriasViewModel
     {
-        [Required]
+        [Key]
         public int Codigo { get; set; }
 
         [Required]

@@ -1,87 +1,121 @@
 ﻿using Actividad4LegnProg3.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.Win32;
-using System.Diagnostics.CodeAnalysis;
-using System.Diagnostics.Metrics;
+using Microsoft.EntityFrameworkCore;
 
-namespace AcAtividad3LegnProg3.Controllers
+namespace Actividad4LegnProg3.Controllers
 {
     public class EstudiantesController : Controller
     {
-        private static List<EstudianteViewModel> Estudiante = new List<EstudianteViewModel>()
-    {
-        new EstudianteViewModel() { Nombrecompleto = "Alexis", Matricula = "1234", Carrera = "Ingeniería en Software" }
-    };
+        private readonly Actividad4LegnProg3Context _context;
 
-        [HttpGet]
-        public IActionResult Index()
+        public EstudiantesController(Actividad4LegnProg3Context context)
         {
-            return View();
+            _context = context;
         }
 
-        [HttpGet]
-        public IActionResult Lista()
+        // GET: Estudiantes
+        public async Task<IActionResult> Index()
         {
-            return View(Estudiante); 
+            var estudiante = new EstudianteViewModel();
+            return View(estudiante);
+
         }
 
-        [HttpGet]
-        public IActionResult Registro()
+        // GET: Estudiantes/Create
+        public IActionResult Create()
         {
             ViewBag.Carrera = new List<string> { "Ingeniería en Software", "Contabilidad", "Derecho" };
             return View();
         }
 
+        // POST: Estudiantes/Create
         [HttpPost]
-        public IActionResult Registro(EstudianteViewModel model)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(EstudianteViewModel model)
         {
             if (ModelState.IsValid)
             {
-                Estudiante.Add(model);
+                _context.Estudiantes.Add(model);
+                await _context.SaveChangesAsync();
                 TempData["Mensaje"] = "El estudiante se ha registrado exitosamente";
-                return RedirectToAction("Registro");
+                return RedirectToAction(nameof(Index));
             }
 
             ViewBag.Carrera = new List<string> { "Ingeniería en Software", "Contabilidad", "Derecho" };
             return View(model);
         }
-        [HttpGet]
-        public IActionResult Editar(int id)
-        {
-            if (id >= 0 && id < Estudiante.Count)
-            {
-                var estudiante = Estudiante[id];
-                ViewBag.Carrera = new List<string> { "Ingeniería en Software", "Contabilidad", "Derecho" };
-                ViewBag.Id = id;
-                return View("Editar", estudiante);
-            }
-            return RedirectToAction("Lista");
-        }
 
-        [HttpPost]
-        public IActionResult Editar(int id, EstudianteViewModel model)
+        // GET: Estudiantes/Edit/5
+        public async Task<IActionResult> Edit(int? id)
         {
-            if (ModelState.IsValid && id >= 0 && id < Estudiante.Count)
-            {
-                Estudiante[id] = model;
-                TempData["Mensaje"] = "Estudiante actualizado";
-                return RedirectToAction("Lista");
-            }
+            if (id == null)
+                return NotFound();
+
+            var estudiante = await _context.Estudiantes.FindAsync(id);
+            if (estudiante == null)
+                return NotFound();
+
             ViewBag.Carrera = new List<string> { "Ingeniería en Software", "Contabilidad", "Derecho" };
-            return View("Editar", model);
+            return View(estudiante);
         }
 
-        [HttpGet]
-        public IActionResult Eliminar(int id)
+        // POST: Estudiantes/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, EstudianteViewModel model)
         {
-            if (id >= 0 && id < Estudiante.Count)
+            if (id != model.Matricula)
+                return NotFound();
+
+            if (ModelState.IsValid)
             {
-                Estudiante.RemoveAt(id);
+                try
+                {
+                    _context.Update(model);
+                    await _context.SaveChangesAsync();
+                    TempData["Mensaje"] = "Estudiante actualizado";
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!_context.Estudiantes.Any(e => e.Matricula == id))
+                        return NotFound();
+                    else
+                        throw;
+                }
+                return RedirectToAction(nameof(Index));
+            }
+
+            ViewBag.Carrera = new List<string> { "Ingeniería en Software", "Contabilidad", "Derecho" };
+            return View(model);
+        }
+
+        // GET: Estudiantes/Delete/5
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var estudiante = await _context.Estudiantes.FindAsync(id);
+            if (estudiante == null)
+                return NotFound();
+
+            return View(estudiante);
+        }
+
+        // POST: Estudiantes/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var estudiante = await _context.Estudiantes.FindAsync(id);
+            if (estudiante != null)
+            {
+                _context.Estudiantes.Remove(estudiante);
+                await _context.SaveChangesAsync();
                 TempData["Mensaje"] = "Estudiante eliminado";
             }
-            return RedirectToAction("Lista");
-        }
 
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

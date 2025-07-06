@@ -3,8 +3,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Actividad4LegnProg3.Models
 {
-    public class EstudianteViewModel
+    public class EstudianteViewModel 
     {
+        [Key]
+        public int Id { get; set; }
+
         [Required(ErrorMessage = "El nombre es obligatorio")]
         [StringLength(100, ErrorMessage = "El nombre está incompleto")]
         public string Nombrecompleto { get; set; }
