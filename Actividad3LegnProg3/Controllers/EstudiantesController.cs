@@ -53,45 +53,75 @@ namespace AcAtividad3LegnProg3.Controllers
 
 
         [HttpGet]
-        public IActionResult Editar(int id)
+        public async Task<IActionResult> Editar(string id)
         {
-            if (ModelState.IsValid)
-            {
-                var estudiante = _context.Estudiantes.Skip(id).FirstOrDefault();
+            if (id == null)
+                return NotFound();
 
-                ViewBag.Carrera = new List<string> { "Ingeniería en Software", "Contabilidad", "Derecho" };
-                ViewBag.Id = id;
-                return View("Editar", estudiante);
-            }
-            return RedirectToAction("Lista");
+            var estudiante = await _context.Estudiantes.FindAsync(id);
+            if (estudiante == null)
+                return NotFound();
 
+            ViewBag.Carrera = new List<string> { "Ingeniería en Software", "Contabilidad", "Derecho" };
+            return View(estudiante);
         }
 
+
         [HttpPost]
-        public IActionResult Editar(String id, EstudianteViewModel model)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Editar(string id, EstudianteViewModel model)
         {
+            if (id != model.Matricula)
+                return NotFound();
+
             if (ModelState.IsValid)
             {
-                var estudiante =
-
-               
-                TempData["Mensaje"] = "Estudiante actualizado";
-                return RedirectToAction("Lista");
-
-                _context.SaveChanges();
+                try
+                {
+                    _context.Update(model);
+                    await _context.SaveChangesAsync();
+                    TempData["Mensaje"] = "Estudiante actualizado";
+                    return RedirectToAction("Lista");
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!_context.Estudiantes.Any(e => e.Matricula == id))
+                        return NotFound();
+                    else
+                        throw;
+                }
+                
             }
+
             ViewBag.Carrera = new List<string> { "Ingeniería en Software", "Contabilidad", "Derecho" };
-            return View("Editar", model);
+            return View(model);
         }
 
         [HttpGet]
-        public IActionResult Eliminar(int id)
+        public async Task<IActionResult> Eliminar(string id)
         {
-            if (ModelState.IsValid)
+            if (string.IsNullOrEmpty(id))
+                return NotFound();
+
+            var estudiante = await _context.Estudiantes.FindAsync(id);
+            if (estudiante == null)
+                return NotFound();
+
+            return View(estudiante);
+        }
+
+        [HttpPost, ActionName("Eliminar")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EliminarConfirmado(string id)
+        {
+            var estudiante = await _context.Estudiantes.FindAsync(id);
+            if (estudiante != null)
             {
-               
+                _context.Estudiantes.Remove(estudiante);
+                await _context.SaveChangesAsync();
                 TempData["Mensaje"] = "Estudiante eliminado";
             }
+
             return RedirectToAction("Lista");
         }
 

@@ -1,0 +1,35 @@
+﻿@model Actividad4LegnProg3.Models.EstudianteViewModel
+
+@{
+    ViewData["Title"] = "Eliminar Estudiante";
+}
+
+<h2>Eliminar Estudiante</h2>
+
+@if (TempData["Mensaje"] != null)
+{
+    <div class="alert alert-success">@TempData["Mensaje"]</div>
+}
+
+<h4>¿Estás seguro que deseas eliminar este estudiante?</h4>
+
+<div class="mb-3">
+    <strong>Nombre Completo:</strong> @Model.Nombrecompleto <br />
+    <strong>Matrícula:</strong> @Model.Matricula <br />
+    <strong>Carrera:</strong> @Model.Carrera <br />
+    <strong>Correo Institucional:</strong> @Model.CorreoInstitucional <br />
+    <strong>Teléfono:</strong> @Model.Telefono <br />
+    <strong>Fecha de Nacimiento:</strong> @Model.Fechadenacimiento.ToShortDateString() <br />
+    <strong>Género:</strong> @Model.Genero <br />
+    <strong>Turno:</strong> @Model.Turno <br />
+    <strong>Tipo de Ingreso:</strong> @Model.Tipodeingreso <br />
+    <strong>¿Está becado?:</strong> @(Model.Estabecado ? "Sí" : "No") <br />
+    <strong>Porcentaje de beca:</strong> @Model.Porcentajedebeca %<br />
+    <strong>Términos y condiciones:</strong> @(Model.Terminosycondiciones ? "Aceptados" : "No aceptados")<br />
+</div>
+
+<form asp-action="Eliminar" method="post">
+    <input type="hidden" asp-for="Matricula" />
+    <button type="submit" class="btn btn-danger">Eliminar</button>
+    <a asp-action="Lista" class="btn btn-secondary">Cancelar</a>
+</form>
