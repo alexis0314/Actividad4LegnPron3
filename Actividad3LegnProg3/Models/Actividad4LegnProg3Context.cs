@@ -16,7 +16,9 @@ public partial class Actividad4LegnProg3Context : DbContext
     }
     public DbSet<EstudianteViewModel> Estudiantes { get; set; }
     public DbSet<MateriasViewModel> Materias { get; set; }
-    public DbSet<CalificacionesViewModel> Calificaciones { get; set; }
+    public DbSet<CalificacionViewModel> Calificaciones { get; set; }
+
+
 
 
 

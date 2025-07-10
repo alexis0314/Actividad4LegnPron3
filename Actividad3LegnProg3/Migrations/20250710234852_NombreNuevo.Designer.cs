@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Actividad4LegnProg3.Migrations
 {
     [DbContext(typeof(Actividad4LegnProg3Context))]
-    [Migration("20250709021338_AgregarCalificaciones")]
-    partial class AgregarCalificaciones
+    [Migration("20250710234852_NombreNuevo")]
+    partial class NombreNuevo
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,7 +25,7 @@ namespace Actividad4LegnProg3.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Actividad4LegnProg3.Models.CalificacionesViewModel", b =>
+            modelBuilder.Entity("Actividad4LegnProg3.Models.CalificacionViewModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -33,21 +33,21 @@ namespace Actividad4LegnProg3.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("EstudianteId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(15)");
-
-                    b.Property<int>("MateriaId")
+                    b.Property<int>("CodigoMateria")
                         .HasColumnType("int");
 
+                    b.Property<string>("MatriculaEstudiante")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<decimal>("Nota")
-                        .HasColumnType("decimal(5,2)");
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Periodo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("EstudianteId");
-
-                    b.HasIndex("MateriaId");
 
                     b.ToTable("Calificaciones");
                 });
@@ -127,25 +127,6 @@ namespace Actividad4LegnProg3.Migrations
                     b.HasKey("Codigo");
 
                     b.ToTable("Materias");
-                });
-
-            modelBuilder.Entity("Actividad4LegnProg3.Models.CalificacionesViewModel", b =>
-                {
-                    b.HasOne("Actividad4LegnProg3.Models.EstudianteViewModel", "Estudiante")
-                        .WithMany()
-                        .HasForeignKey("EstudianteId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Actividad4LegnProg3.Models.MateriasViewModel", "Materia")
-                        .WithMany()
-                        .HasForeignKey("MateriaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Estudiante");
-
-                    b.Navigation("Materia");
                 });
 #pragma warning restore 612, 618
         }
