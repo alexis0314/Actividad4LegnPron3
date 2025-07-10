@@ -53,7 +53,7 @@ namespace Actividad4LegnProg3.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Codigo,Nombre,Credito,Carrera")] MateriasViewModel materiasViewModel)
+        public async Task<IActionResult> Create([Bind("Codigo,Nombre,Creditos,Carrera")] MateriasViewModel materiasViewModel)
         {
             if (ModelState.IsValid)
             {
@@ -85,7 +85,7 @@ namespace Actividad4LegnProg3.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Codigo,Nombre,Credito,Carrera")] MateriasViewModel materiasViewModel)
+        public async Task<IActionResult> Edit(int id, [Bind("Codigo,Nombre,Creditos,Carrera")] MateriasViewModel materiasViewModel)
         {
             if (id != materiasViewModel.Codigo)
             {

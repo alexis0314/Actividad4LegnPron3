@@ -4,6 +4,7 @@ using Actividad4LegnProg3.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Actividad4LegnProg3.Migrations
 {
     [DbContext(typeof(Actividad4LegnProg3Context))]
-    partial class Actividad4LegnProg3ContextModelSnapshot : ModelSnapshot
+    [Migration("20250709232538_AgregarCampoPeriodo")]
+    partial class AgregarCampoPeriodo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

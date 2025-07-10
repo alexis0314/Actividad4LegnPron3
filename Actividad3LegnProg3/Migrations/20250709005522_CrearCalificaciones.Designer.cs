@@ -4,6 +4,7 @@ using Actividad4LegnProg3.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Actividad4LegnProg3.Migrations
 {
     [DbContext(typeof(Actividad4LegnProg3Context))]
-    partial class Actividad4LegnProg3ContextModelSnapshot : ModelSnapshot
+    [Migration("20250709005522_CrearCalificaciones")]
+    partial class CrearCalificaciones
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -22,7 +25,7 @@ namespace Actividad4LegnProg3.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Actividad4LegnProg3.Models.Calificacion", b =>
+            modelBuilder.Entity("Actividad4LegnProg3.Models.CalificacionesViewModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -30,10 +33,7 @@ namespace Actividad4LegnProg3.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("EstudianteId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("EstudianteMatricula")
+                    b.Property<string>("EstudianteId")
                         .IsRequired()
                         .HasColumnType("nvarchar(15)");
 
@@ -41,15 +41,11 @@ namespace Actividad4LegnProg3.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal>("Nota")
-                        .HasColumnType("decimal(5,2)");
-
-                    b.Property<string>("Periodo")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("EstudianteMatricula");
+                    b.HasIndex("EstudianteId");
 
                     b.HasIndex("MateriaId");
 
@@ -133,11 +129,11 @@ namespace Actividad4LegnProg3.Migrations
                     b.ToTable("Materias");
                 });
 
-            modelBuilder.Entity("Actividad4LegnProg3.Models.Calificacion", b =>
+            modelBuilder.Entity("Actividad4LegnProg3.Models.CalificacionesViewModel", b =>
                 {
                     b.HasOne("Actividad4LegnProg3.Models.EstudianteViewModel", "Estudiante")
                         .WithMany()
-                        .HasForeignKey("EstudianteMatricula")
+                        .HasForeignKey("EstudianteId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

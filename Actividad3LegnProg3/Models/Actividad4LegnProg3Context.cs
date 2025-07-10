@@ -18,6 +18,9 @@ public partial class Actividad4LegnProg3Context : DbContext
     public DbSet<MateriasViewModel> Materias { get; set; }
     public DbSet<CalificacionesViewModel> Calificaciones { get; set; }
 
+
+
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         OnModelCreatingPartial(modelBuilder);

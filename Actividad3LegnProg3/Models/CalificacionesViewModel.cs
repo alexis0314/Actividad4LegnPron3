@@ -1,28 +1,27 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Actividad4LegnProg3.Models
 {
     public class CalificacionesViewModel
     {
-        [Key]
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "La matrícula es obligatoria")]
-        public int MatriculaEstudiantes { get; set; }
+        [Required]
+        public int EstudianteId { get; set; }
 
         [Required]
-        public int CodigoMateria { get; set; }
+        public int MateriaId { get; set; }
 
         [Required]
-        [StringLength(0, MinimumLength = 100, ErrorMessage = "La Nota debe tener entre 0 y 100 caracteres.")]
-        [Precision(5, 2)]
+        [Range(0, 100)]
+        [Column(TypeName = "decimal(5,2)")]
         public decimal Nota { get; set; }
 
         [Required]
-        public int Periodo { get; set; }
+        public string Periodo { get; set; }
 
-        public virtual EstudianteViewModel Estudiante { get; set; }
-        public virtual MateriasViewModel Materia { get; set; }
+        public EstudianteViewModel Estudiante { get; set; }
+        public MateriasViewModel Materia { get; set; }
     }
 }
